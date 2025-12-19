@@ -2,15 +2,14 @@
 import { GoogleGenAI } from "@google/genai";
 
 export class GeminiService {
-  private ai: GoogleGenAI;
-
-  constructor() {
-    this.ai = new GoogleGenAI({ apiKey: process.env.API_KEY as string });
-  }
+  // Fix: Removed the class-level GoogleGenAI instance to follow the "create instance right before API call" guideline.
+  // This ensures the application always uses the correct, injected API key from process.env.API_KEY.
 
   async executeStreamPrompt(promptText: string, systemInstruction: string, onChunk: (chunk: string) => void) {
+    // Fix: Create a new instance right before making an API call.
+    const ai = new GoogleGenAI({ apiKey: process.env.API_KEY as string });
     try {
-      const response = await this.ai.models.generateContentStream({
+      const response = await ai.models.generateContentStream({
         model: 'gemini-3-pro-preview',
         contents: promptText,
         config: {
@@ -38,6 +37,8 @@ export class GeminiService {
    */
   async executeExpertPolish(promptText: string, onProgress: (step: number, data: string) => void) {
     const model = 'gemini-3-pro-preview';
+    // Fix: Create a new instance right before making an API call.
+    const ai = new GoogleGenAI({ apiKey: process.env.API_KEY as string });
 
     // Step 1: Roundtable Critique
     const step1Prompt = `Imagine a roundtable of expert critics (A Pragmatic Architect, A Customer Obsessed Designer, and A Hard-nosed QA Lead) sitting in a circular discussion. Review the following content/request:
@@ -45,7 +46,7 @@ export class GeminiService {
     Create a multi-perspective critique where each critic has a distinct personality and tone. Present the discussion in real time.`;
 
     let step1Result = "";
-    const res1 = await this.ai.models.generateContentStream({
+    const res1 = await ai.models.generateContentStream({
       model,
       contents: step1Prompt,
       config: { systemInstruction: "You are hosting an expert circular discussion." }
@@ -61,7 +62,7 @@ export class GeminiService {
     Identify improvement opportunities. Apply one improvement at a time until complete.`;
 
     let step2Result = "";
-    const res2 = await this.ai.models.generateContentStream({
+    const res2 = await ai.models.generateContentStream({
       model,
       contents: step2Prompt,
       config: { systemInstruction: "Refine content based on expert panel feedback." }
@@ -76,7 +77,7 @@ export class GeminiService {
     Identify bugs, code smells, and opportunities to improve readability, accessibility (WCAG 2.2), and performance. Provide a prioritized list of issues with concise explanations and the final polished version.`;
 
     let finalResult = "";
-    const res4 = await this.ai.models.generateContentStream({
+    const res4 = await ai.models.generateContentStream({
       model,
       contents: step4Prompt,
       config: { systemInstruction: "Conduct a deep UI/UX and technical audit for WCAG compliance and best practices." }

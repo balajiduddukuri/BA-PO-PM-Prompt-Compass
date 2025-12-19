@@ -41,6 +41,15 @@ export interface Prompt {
   samples?: VariableValue[];
 }
 
+export interface Article {
+  id: string;
+  title: string;
+  excerpt: string;
+  content: string;
+  tag: string;
+  readTime: string;
+}
+
 export interface VariableValue {
   [key: string]: string;
 }

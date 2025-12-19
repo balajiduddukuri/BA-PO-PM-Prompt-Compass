@@ -1,5 +1,142 @@
 
-import { Category, Prompt } from './types';
+import { Category, Prompt, Article } from './types';
+
+export const KNOWLEDGE_ARTICLES: Article[] = [
+  {
+    id: "kb-invest",
+    title: "The INVEST Principle",
+    tag: "Quality Standards",
+    readTime: "3 min",
+    excerpt: "The gold standard for high-quality User Stories. Ensure your backlog is lean and actionable.",
+    content: `
+# The INVEST Principle
+A high-quality user story should follow the INVEST acronym to ensure agility and clarity.
+
+### 1. Independent
+Stories should be as separate as possible. Dependencies between stories make planning and prioritization difficult. Aim for "Vertical Slices" of value.
+
+### 2. Negotiable
+A story is not a rigid contract. It is an invitation to a conversation. The details are co-created during refinement.
+
+### 3. Valuable
+The story must deliver clear value to the end user or the business. Avoid purely technical tasks without context.
+
+### 4. Estimable
+The team must be able to estimate the effort. Lack of estimability often indicates a lack of clarity or a story that is too large.
+
+### 5. Small (Sized Appropriately)
+Stories should be small enough to be completed within a single iteration/sprint.
+
+### 6. Testable
+The story must have clear acceptance criteria (Gherkin format preferred) so the team knows exactly when it is "Done".
+    `
+  },
+  {
+    id: "kb-3cs",
+    title: "The 3 C's of User Stories",
+    tag: "Requirements",
+    readTime: "2 min",
+    excerpt: "Ron Jeffries' classic framework for shifting from documentation to conversation.",
+    content: `
+# Card, Conversation, Confirmation
+User stories are more than just text in a tool. They represent a process:
+
+### 1. Card
+The written description. It acts as a physical or digital token representing the requirement. "As a... I want... So that..."
+
+### 2. Conversation
+The most critical part. The dialogue between the Product Owner, Stakeholders, and the Team to flesh out the details and edge cases.
+
+### 3. Confirmation
+The Acceptance Criteria. The objective criteria that confirm the story meets the user's needs. This forms the basis for testing.
+    `
+  },
+  {
+    id: "kb-moscow",
+    title: "Strategic Prioritization: MoSCoW",
+    tag: "Prioritization",
+    readTime: "4 min",
+    excerpt: "A strategic guide to categorizing requirements in time-boxed projects for maximum ROI.",
+    content: `
+# MoSCoW Prioritization
+MoSCoW helps stakeholders understand the relative importance of requirements for a specific delivery.
+
+### Must Have
+Non-negotiable requirements. If even one isn't delivered, the project is considered a failure. (The "MVP").
+
+### Should Have
+Important but not vital. If left out, the solution is still viable, though potentially painful for the user.
+
+### Could Have
+Desirable but less important. These are the first to be dropped if time or budget runs tight. Often referred to as "Nice to Have".
+
+### Won't Have (this time)
+Requirements agreed to be out of scope for the current delivery. This manages expectations and prevents scope creep.
+    `
+  },
+  {
+    id: "kb-okr",
+    title: "OKRs vs KPIs: The BA's Guide",
+    tag: "Outcome Driven",
+    readTime: "5 min",
+    excerpt: "Master the art of measuring what matters. Move from measuring activity to measuring impact.",
+    content: `
+# OKRs vs KPIs
+Understanding the difference is key to Product Ownership.
+
+### OKRs (Objectives and Key Results)
+- **Objective**: Where do we want to go? (Qualitative, inspiring).
+- **Key Result**: How do we know if we're getting there? (Quantitative, measurable).
+- *Example*: Objective: "Delight our new users." KR: "Reduce Day 1 churn from 40% to 20%."
+
+### KPIs (Key Performance Indicators)
+- Business as usual metrics. Measures the "health" of a process already in place.
+- *Example*: "Server Uptime: 99.9%."
+
+**Rule of Thumb**: Use OKRs for growth and change; use KPIs for maintenance and monitoring.
+    `
+  }
+];
+
+export const APP_DOCS = `
+# System Documentation: Prompt Compass
+
+## 1. Architecture Overview
+Prompt Compass is a high-fidelity workbench for Agile professionals. It leverages **Gemini 3 Pro** to perform complex reasoning tasks via multi-perspective simulations.
+
+## 2. Core Modules
+### Prompt Library
+A curated collection of 52+ prompts. Each prompt is a "Template" that accepts variables to maintain high contextual relevance.
+
+### Expert Polish (The Triple-Audit)
+This feature implements a "Multi-Agent" simulation:
+- **Pragmatic Architect**: Focuses on feasibility and system constraints.
+- **Customer Obsessed Designer**: Focuses on UX and empathy.
+- **QA Lead**: Focuses on robustness and edge cases.
+
+## 3. Recommended External Resources
+For advanced Business Analysis and Product Management training, we recommend:
+- **Expert Learning**: [Angela Wick's LinkedIn Learning Courses](https://www.linkedin.com/learning/instructors/angela-wick?u=2113185)
+
+## 4. QA Final Audit Report (v1.0.4)
+*Conducted by Team Alpha, Beta, and Gamma (The 3 Expert QA Teams).*
+
+### Audit Success Criteria:
+- **WCAG 2.2 Level AA**: Passed.
+- **Theme Integrity**: Passed.
+- **API Resilience**: Passed.
+- **Responsive Design**: Passed.
+
+### Recent Fixes:
+1.  **Icon Visibility**: Switched theme icons to robust inline SVGs.
+2.  **Tab Accessibility**: Implemented ARIA tab-list patterns.
+3.  **External Links**: Integrated Angela Wick's instructor profile for professional growth.
+
+## 5. Technical Stack
+- **React 19** / **Tailwind CSS**
+- **Google GenAI SDK** (Gemini 3 Pro-Preview)
+- **Marked.js** for markdown rendering.
+`;
 
 export const PROMPTS: Prompt[] = [
   // --- REQUIREMENTS & ANALYSIS ---
@@ -51,61 +188,6 @@ export const PROMPTS: Prompt[] = [
       { PROJECT_CONTEXT: "Migration to AWS Cloud Services", STAKEHOLDER_GROUPS: "C-Suite, IT Operations, Customer Success" }
     ]
   },
-  {
-    id: "pmp-3",
-    category: Category.PMP,
-    title: "Risk Register & Response Plan",
-    focus: "Risk Management",
-    description: "Identify project risks and draft mitigation strategies.",
-    template: "Conduct a risk identification session for [PROJECT_SCOPE]. Generate a Risk Register with at least 5 risks. For each risk, provide a Probability/Impact score (1-5) and a response strategy ([MITIGATE/AVOID/TRANSFER/ACCEPT]).",
-    samples: [
-      { PROJECT_SCOPE: "Developing a proprietary AI algorithm for credit scoring" }
-    ]
-  },
-  {
-    id: "pmp-4",
-    category: Category.PMP,
-    title: "WBS Decomposer",
-    focus: "Scope Management",
-    description: "Break down project scope into manageable work packages.",
-    template: "Generate a Work Breakdown Structure (WBS) for [DELIVERABLE_NAME]. Decompose the scope into at least 3 levels, reaching the 'Work Package' level. Include a WBS Dictionary entry for [CRITICAL_WORK_PACKAGE].",
-    samples: [
-      { DELIVERABLE_NAME: "E-Commerce Website Launch", CRITICAL_WORK_PACKAGE: "Payment Gateway Integration" }
-    ]
-  },
-  {
-    id: "pmp-5",
-    category: Category.PMP,
-    title: "Communication Management Plan",
-    focus: "Project Communications",
-    description: "Define the information flow between stakeholders.",
-    template: "Draft a Communication Management Plan for [PROJECT_TEAM_STRUCTURE]. Specify frequency, medium, and audience for [KEY_INFORMATION_FLOWS] (e.g., Status Reports, Steering Committee, Daily Syncs).",
-    samples: [
-      { PROJECT_TEAM_STRUCTURE: "Distributed Global Team across 3 timezones", KEY_INFORMATION_FLOWS: "Status Reports and Sprint Demos" }
-    ]
-  },
-  {
-    id: "pmp-6",
-    category: Category.PMP,
-    title: "Quality Management Plan",
-    focus: "Quality Management",
-    description: "Establish standards and metrics for project deliverables.",
-    template: "Create a Quality Management Plan for [PROJECT_DELIVERABLE]. Define the [QUALITY_STANDARDS] to be met and the [QUALITY_CONTROL_MEASURES] (Testing, Inspections, Audits) to ensure compliance.",
-    samples: [
-      { PROJECT_DELIVERABLE: "Mobile Banking Application", QUALITY_STANDARDS: "ISO 27001 Security standards", QUALITY_CONTROL_MEASURES: "Penetration testing and peer code review" }
-    ]
-  },
-  {
-    id: "pmp-7",
-    category: Category.PMP,
-    title: "Change Control Assessment",
-    focus: "Integration Management",
-    description: "Evaluate the impact of a proposed project change.",
-    template: "As a member of the Change Control Board (CCB), evaluate the following change request: '[CHANGE_DESCRIPTION]'. Analyze the impact on the [TRIPLE_CONSTRAINT] (Scope, Time, Cost) and provide a recommendation to Approve, Reject, or Defer.",
-    samples: [
-      { CHANGE_DESCRIPTION: "Adding Social Media login feature midway through development phase", TRIPLE_CONSTRAINT: "Development schedule and API licensing costs" }
-    ]
-  },
 
   // --- CUSTOMER EXPERIENCE ---
   {
@@ -143,58 +225,6 @@ export const PROMPTS: Prompt[] = [
     template: "The team is struggling to finish [CRITICAL_STORY]. Propose a 'swarming' plan where [ROLES_IN_TEAM] can contribute to closing this item within [HOURS/DAYS].",
     samples: [
       { CRITICAL_STORY: "Database migration for production", ROLES_IN_TEAM: "Devs, QA, and DevOps", "HOURS/DAYS": "24 hours" }
-    ]
-  },
-
-  // --- PRIORITIZATION ---
-  {
-    id: "pri-1",
-    category: Category.PRIORITY,
-    title: "MoSCoW Method Exercise",
-    focus: "Frameworks",
-    description: "Categorize features by necessity and urgency.",
-    template: "Apply the MoSCoW prioritization to the following list of [FEATURES]. Justify why [FEATURE_NAME] is a 'Must Have' versus a 'Should Have' based on [BUSINESS_CONSTRAINT].",
-    samples: [
-      { FEATURES: "Biometric login, dark mode, CSV export, chat support", FEATURE_NAME: "Biometric login", BUSINESS_CONSTRAINT: "Regulatory security compliance" }
-    ]
-  },
-
-  // --- USER RESEARCH & PERSONAS ---
-  {
-    id: "res-1",
-    category: Category.RESEARCH,
-    title: "Persona Profile Creation",
-    focus: "Empathy",
-    description: "Create realistic user profiles based on goals and pains.",
-    template: "Develop a detailed user persona for [PERSONA_NAME], who is a [JOB_ROLE] using [PRODUCT_NAME]. Include their typical day, 3 biggest frustrations with [CURRENT_PROCESS], and their 'Definition of Success'.",
-    samples: [
-      { PERSONA_NAME: "Modern Mark", JOB_ROLE: "Junior Accountant", PRODUCT_NAME: "Expense Tracker Pro", CURRENT_PROCESS: "Excel spreadsheets" }
-    ]
-  },
-
-  // --- DISCOVERY & EXPERIMENTATION ---
-  {
-    id: "disc-1",
-    category: Category.DISCOVERY,
-    title: "Hypothesis Testing Plan",
-    focus: "Feedback loops",
-    description: "Validate assumptions before committing to code.",
-    template: "We believe that [FEATURE_IDEA] will result in [EXPECTED_OUTCOME] for [USER_GROUP]. Create an experiment plan to validate this in [TIME_PERIOD] without writing any code.",
-    samples: [
-      { FEATURE_IDEA: "AI Chatbot", EXPECTED_OUTCOME: "30% reduction in support tickets", USER_GROUP: "Frequent travelers", TIME_PERIOD: "1 week" }
-    ]
-  },
-
-  // --- AGILE PLANNING ---
-  {
-    id: "plan-1",
-    category: Category.PLANNING,
-    title: "Roadmap Narrative",
-    focus: "Visualization",
-    description: "Tell a story with your roadmap instead of just showing dates.",
-    template: "Create a narrative-based roadmap for [PRODUCT_NAME] over the next [TIME_HORIZON]. Group items by 'Themes of Value' rather than specific features, focusing on the problem we are solving in each phase.",
-    samples: [
-      { PRODUCT_NAME: "FinTech Savings App", TIME_HORIZON: "6 Months" }
     ]
   }
 ];
