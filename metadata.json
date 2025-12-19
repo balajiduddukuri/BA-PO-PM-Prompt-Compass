@@ -1,0 +1,8 @@
+{
+  "name": "BA/PO/PM Prompt Compass",
+  "description": "A comprehensive toolkit for Business Analysts and Product Owners featuring 52 actionable prompts across 11 strategic categories to accelerate requirements, analysis, and team execution. Designed with accessibility and art-fusion aesthetics.",
+  "author": "BalajiDuddukuri",
+  "requestFramePermissions": [
+    "microphone"
+  ]
+}
